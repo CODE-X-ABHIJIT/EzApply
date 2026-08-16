@@ -1,0 +1,15 @@
+find . -type f \( -name "*.db" -o -name "*.sqlite" -o -name "*.sqlite3" \)
+
+sqlite3 data/outreach.db
+.tables
+
+SELECT id, email, status FROM jobs;
+
+SELECT id, email, status
+FROM jobs
+WHERE status = 'sent';
+
+ALTERNATIVE
+====================
+
+sqlite3 data/outreach.db "SELECT id, email, status FROM jobs;"

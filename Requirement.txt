@@ -1,0 +1,13 @@
+python3 -m venv .venv
+source .venv/bin/activate
+pip install playwright
+python -m playwright install chromium
+cp .env.example .env
+rm data/outreach.db
+python -m outreach login
+python -m outreach scan
+python -m outreach list
+python -m outreach draft
+python -m outreach approve
+pip install playwright
+python -m playwright install chromium
