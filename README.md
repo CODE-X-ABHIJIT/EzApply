@@ -4,7 +4,7 @@ A Python CLI that turns LinkedIn hiring posts you manually collect into personal
 
 ## V1 workflow
 
-1. Copy LinkedIn post text into `data/posts.txt`.
+1. Copy LinkedIn post link into `data/posts.txt`.
 2. Put your resume at `data/resume.pdf`.
 3. Run the scanner.
 4. Review extracted recruiter/company/role/email data and match scores.
