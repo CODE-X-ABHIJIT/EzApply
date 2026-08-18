@@ -16,7 +16,6 @@ RESUME_FILE = DATA_DIR / "Abhijit_Sahu_CV.pdf"
 
 DB_FILE = DATA_DIR / "outreach.db"
 
-# Playwright LinkedIn authentication state
 LINKEDIN_STATE_FILE = DATA_DIR / "linkedin_state.json"
 
 
@@ -43,29 +42,72 @@ LINKEDIN_STATE = os.getenv(
     "",
 )
 
+
 # ============================================================
 # CONFIG
 # ============================================================
 
 def get_config():
 
+    target_roles = [
+        "AWS Cloud Engineer",
+        "Cloud Engineer",
+        "AWS Engineer",
+        "DevOps Engineer",
+        "DevOps",
+        "Kubernetes Engineer",
+        "Site Reliability Engineer",
+        "SRE",
+    ]
+
+    target_keywords = [
+        "AWS",
+        "Cloud",
+        "DevOps",
+        "Kubernetes",
+        "Docker",
+        "Terraform",
+        "CI/CD",
+        "Jenkins",
+        "GitHub Actions",
+        "Linux",
+        "OpenShift",
+        "Ansible",
+        "Python",
+    ]
+
     return {
+        # ====================================================
+        # EMAIL
+        # ====================================================
+
         "gmail_user": GMAIL_USER,
         "gmail_pass": GMAIL_PASS,
 
         "smtp_user": SMTP_USER,
         "smtp_password": SMTP_PASSWORD,
 
-        "target_roles": [
-            "AWS Cloud Engineer",
-            "Cloud Engineer",
-            "AWS Engineer",
-            "DevOps Engineer",
-            "DevOps",
-            "Kubernetes Engineer",
-            "Site Reliability Engineer",
-            "SRE",
-        ],
+
+        # ====================================================
+        # CANDIDATE
+        # ====================================================
+
+        "candidate_name": "Abhijit Sahu",
+
+        "candidate_location": "Noida, India",
+
+        "candidate_phone": "",
+
+        "candidate_email": GMAIL_USER,
+
+
+        # ====================================================
+        # JOB MATCHING
+        # ====================================================
+
+        "target_roles": target_roles,
+
+        "target_keywords": target_keywords,
 
         "experience": [
             "fresher",
