@@ -1,4 +1,3 @@
-````markdown
 # 🚀 EzApply
 
 **EzApply** is a Python-based job outreach automation tool that helps automate the process of finding suitable LinkedIn job posts, extracting recruiter email addresses, matching jobs against target roles, and sending personalized cold emails with a resume.
@@ -145,7 +144,7 @@ LINKEDIN_STATE
 
 ### Local
 
-The state is stored as:
+The authentication state is stored as:
 
 ```text
 data/linkedin_state.json
@@ -268,8 +267,6 @@ Authenticate LinkedIn locally:
 python -m outreach login
 ```
 
----
-
 ### Scan
 
 Read URLs from `posts.txt` and extract job information:
@@ -277,8 +274,6 @@ Read URLs from `posts.txt` and extract job information:
 ```bash
 python -m outreach scan
 ```
-
----
 
 ### List
 
@@ -288,8 +283,6 @@ Display pending jobs:
 python -m outreach list
 ```
 
----
-
 ### Draft
 
 Display generated email drafts:
@@ -297,8 +290,6 @@ Display generated email drafts:
 ```bash
 python -m outreach draft
 ```
-
----
 
 ### Send One
 
@@ -313,8 +304,6 @@ Example:
 ```bash
 python -m outreach send 5
 ```
-
----
 
 ### Bulk Send
 
@@ -437,8 +426,6 @@ python -m outreach login
 
 This creates the LinkedIn authentication state.
 
----
-
 ### Step 2 — Add LinkedIn Posts
 
 Add LinkedIn post URLs to:
@@ -453,8 +440,6 @@ Example:
 https://www.linkedin.com/posts/example-post-123456
 https://www.linkedin.com/posts/example-post-789012
 ```
-
----
 
 ### Step 3 — Run EzApply
 
@@ -561,7 +546,13 @@ EzApply is designed for personal job-search assistance.
 
 LinkedIn automation should be used responsibly and in accordance with LinkedIn's applicable terms and policies.
 
-The current version **does not automatically search LinkedIn**. Job post URLs are manually added to `data/posts.txt`.
+The current version **does not automatically search LinkedIn**.
+
+Job post URLs are currently added manually to:
+
+```text
+data/posts.txt
+```
 
 ---
 
@@ -569,7 +560,7 @@ The current version **does not automatically search LinkedIn**. Job post URLs ar
 
 **Abhijit Sahu**
 
-A Python-based job outreach automation project using:
+Python-based job outreach automation using:
 
 ```text
 Python
