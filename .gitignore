@@ -3,7 +3,6 @@
 *.docx
 
 data/linkedin_state.json
-data/outreach.db
 linkedin_state.b64
 .env
 browser_profile/
