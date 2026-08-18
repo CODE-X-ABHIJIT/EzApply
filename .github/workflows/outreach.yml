@@ -1,32 +1,99 @@
 name: LinkedIn Job Outreach
 
+
 on:
+
+  # Run every 6 hours
   schedule:
     - cron: "0 */6 * * *"
 
+  # Allow manual execution
   workflow_dispatch:
 
+
 jobs:
+
   outreach:
+
     runs-on: ubuntu-latest
 
     steps:
+
+      # ------------------------------------------------------
+      # Checkout
+      # ------------------------------------------------------
+
       - name: Checkout repository
         uses: actions/checkout@v4
 
+
+      # ------------------------------------------------------
+      # Python
+      # ------------------------------------------------------
+
       - name: Setup Python
         uses: actions/setup-python@v5
+
         with:
           python-version: "3.12"
 
+
+      # ------------------------------------------------------
+      # Install Python dependencies
+      # ------------------------------------------------------
+
       - name: Install dependencies
         run: |
+          python -m pip install --upgrade pip
           pip install -r requirements.txt
+
+
+      # ------------------------------------------------------
+      # Install Playwright Chromium
+      # ------------------------------------------------------
+
+      - name: Install Playwright Chromium
+        run: |
           python -m playwright install --with-deps chromium
 
-      - name: Run outreach
+
+      # ------------------------------------------------------
+      # Create data directory
+      # ------------------------------------------------------
+
+      - name: Create data directory
+        run: |
+          mkdir -p data
+
+
+      # ------------------------------------------------------
+      # Restore LinkedIn authentication state
+      # ------------------------------------------------------
+
+      - name: Restore LinkedIn authentication
+        env:
+          LINKEDIN_STATE: ${{ secrets.LINKEDIN_STATE }}
+
+        run: |
+          if [ -z "$LINKEDIN_STATE" ]; then
+            echo "LINKEDIN_STATE secret is missing."
+            exit 1
+          fi
+
+          echo "$LINKEDIN_STATE" | base64 --decode > data/linkedin_state.json
+
+          echo "LinkedIn authentication state restored."
+
+
+      # ------------------------------------------------------
+      # Run complete outreach process
+      # ------------------------------------------------------
+
+      - name: Run automated outreach
         env:
           GMAIL_USER: ${{ secrets.GMAIL_USER }}
           GMAIL_PASS: ${{ secrets.GMAIL_PASS }}
+          LINKEDIN_STATE: ${{ secrets.LINKEDIN_STATE }}
+
         run: |
           python auto_outreach.py

@@ -1,51 +1,71 @@
 import os
 from pathlib import Path
 
-BROWSER_PROFILE = Path("browser_profile")
 
-ROOT = Path(__file__).resolve().parent.parent
-DATA_DIR = ROOT / "data"
+# ============================================================
+# PROJECT PATHS
+# ============================================================
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+DATA_DIR = BASE_DIR / "data"
+
 POSTS_FILE = DATA_DIR / "posts.txt"
+
 RESUME_FILE = DATA_DIR / "Abhijit_Sahu_CV.pdf"
+
 DB_FILE = DATA_DIR / "outreach.db"
 
-
-def load_env_file():
-    env_file = ROOT / ".env"
-    if not env_file.exists():
-        return
-    for raw in env_file.read_text(encoding="utf-8").splitlines():
-        line = raw.strip()
-        if not line or line.startswith("#") or "=" not in line:
-            continue
-        key, value = line.split("=", 1)
-        os.environ.setdefault(key.strip(), value.strip().strip('"').strip("'"))
+# Playwright LinkedIn authentication state
+LINKEDIN_STATE_FILE = DATA_DIR / "linkedin_state.json"
 
 
-def csv_env(name, default=""):
-    return [x.strip() for x in os.getenv(name, default).split(",") if x.strip()]
+# ============================================================
+# ENVIRONMENT VARIABLES
+# ============================================================
 
+GMAIL_USER = os.getenv(
+    "GMAIL_USER",
+    "",
+)
+
+GMAIL_PASS = os.getenv(
+    "GMAIL_PASS",
+    "",
+)
+
+LINKEDIN_STATE = os.getenv(
+    "LINKEDIN_STATE",
+    "",
+)
+
+
+# ============================================================
+# CONFIG
+# ============================================================
 
 def get_config():
-    load_env_file()
+
     return {
-        "smtp_host": os.getenv("SMTP_HOST", "smtp.gmail.com"),
-        "smtp_port": int(os.getenv("SMTP_PORT", "587")),
-        "smtp_user": os.getenv("SMTP_USER", ""),
-        "smtp_password": os.getenv("SMTP_PASSWORD", ""),
-        "from_name": os.getenv("FROM_NAME", "Abhijit Sahu"),
-        "candidate_name": os.getenv("CANDIDATE_NAME", "Abhijit Sahu"),
-        "candidate_email": os.getenv("CANDIDATE_EMAIL", ""),
-        "candidate_phone": os.getenv("CANDIDATE_PHONE", ""),
-        "candidate_location": os.getenv("CANDIDATE_LOCATION", "India"),
-        "target_roles": csv_env(
-            "TARGET_ROLES",
-            "AWS Cloud Engineer,Cloud Engineer,DevOps Engineer,DevOps,"
-            "Site Reliability Engineer,Kubernetes Engineer",
-        ),
-        "target_keywords": csv_env(
-            "TARGET_KEYWORDS",
-            "AWS,Kubernetes,Docker,Terraform,Linux,DevOps,Cloud,EC2,EKS,"
-            "IAM,VPC,CI/CD,Prometheus,Grafana",
-        ),
+        "gmail_user": GMAIL_USER,
+        "gmail_pass": GMAIL_PASS,
+
+        "target_roles": [
+            "AWS Cloud Engineer",
+            "Cloud Engineer",
+            "AWS Engineer",
+            "DevOps Engineer",
+            "DevOps",
+            "Kubernetes Engineer",
+            "Site Reliability Engineer",
+            "SRE",
+        ],
+
+        "experience": [
+            "fresher",
+            "0-1",
+            "0-2",
+            "1-2",
+            "entry level",
+        ],
     }

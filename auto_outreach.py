@@ -1,19 +1,54 @@
 import subprocess
 
 
-subprocess.run(
-    ["python", "-m", "outreach", "scan"],
-    check=True,
+def run(command, input_text=None):
+
+    subprocess.run(
+        command,
+        input=input_text,
+        text=True,
+        check=True,
+    )
+
+
+# ------------------------------------------------------------
+# Scan all LinkedIn posts
+# ------------------------------------------------------------
+
+run(
+    [
+        "python",
+        "-m",
+        "outreach",
+        "scan",
+    ]
 )
 
-subprocess.run(
-    ["python", "-m", "outreach", "list"],
-    check=True,
+
+# ------------------------------------------------------------
+# Show jobs found
+# ------------------------------------------------------------
+
+run(
+    [
+        "python",
+        "-m",
+        "outreach",
+        "list",
+    ]
 )
 
-subprocess.run(
-    ["python", "-m", "outreach", "approve"],
-    input="y\n",
-    text=True,
-    check=True,
+
+# ------------------------------------------------------------
+# Automatically approve and send
+# ------------------------------------------------------------
+
+run(
+    [
+        "python",
+        "-m",
+        "outreach",
+        "approve",
+    ],
+    input_text="y\n",
 )

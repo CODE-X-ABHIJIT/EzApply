@@ -10,3 +10,11 @@ data/outreach.db
 
 *.pdf
 *.docx
+
+data/linkedin_state.json
+data/outreach.db
+linkedin_state.b64
+.env
+browser_profile/
+.venv/
+__pycache__/
