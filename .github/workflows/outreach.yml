@@ -91,8 +91,8 @@ jobs:
 
       - name: Run automated outreach
         env:
-          SMTP_USER: ${{ secrets.SMTP_USER }}
-          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_PASS: ${{ secrets.GMAIL_PASS }}
           LINKEDIN_STATE: ${{ secrets.LINKEDIN_STATE }}
 
         run: |
