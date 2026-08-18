@@ -54,7 +54,7 @@ jobs:
 
       - name: Install Playwright Chromium
         run: |
-          python -m playwright install --with-deps chromium
+          python -m playwright install chromium
 
 
       # ------------------------------------------------------
