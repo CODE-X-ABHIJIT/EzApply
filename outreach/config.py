@@ -16,7 +16,6 @@ RESUME_FILE = DATA_DIR / "Abhijit_Sahu_CV.pdf"
 
 DB_FILE = DATA_DIR / "outreach.db"
 
-# Playwright LinkedIn authentication state
 LINKEDIN_STATE_FILE = DATA_DIR / "linkedin_state.json"
 
 
@@ -24,13 +23,13 @@ LINKEDIN_STATE_FILE = DATA_DIR / "linkedin_state.json"
 # ENVIRONMENT VARIABLES
 # ============================================================
 
-GMAIL_USER = os.getenv(
-    "GMAIL_USER",
+SMTP_USER = os.getenv(
+    "SMTP_USER",
     "",
 )
 
-GMAIL_PASS = os.getenv(
-    "GMAIL_PASS",
+SMTP_PASSWORD = os.getenv(
+    "SMTP_PASSWORD",
     "",
 )
 
@@ -47,8 +46,8 @@ LINKEDIN_STATE = os.getenv(
 def get_config():
 
     return {
-        "gmail_user": GMAIL_USER,
-        "gmail_pass": GMAIL_PASS,
+        "smtp_user": SMTP_USER,
+        "smtp_password": SMTP_PASSWORD,
 
         "target_roles": [
             "AWS Cloud Engineer",
