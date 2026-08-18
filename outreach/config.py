@@ -23,24 +23,10 @@ LINKEDIN_STATE_FILE = DATA_DIR / "linkedin_state.json"
 # ENVIRONMENT VARIABLES
 # ============================================================
 
-GMAIL_USER = os.getenv(
-    "GMAIL_USER",
-    "",
-)
+GMAIL_USER = os.environ.get("GMAIL_USER", "").strip()
+GMAIL_PASS = os.environ.get("GMAIL_PASS", "").strip()
 
-GMAIL_PASS = os.getenv(
-    "GMAIL_PASS",
-    "",
-)
-
-# Aliases used by mailer.py
-SMTP_USER = GMAIL_USER
-SMTP_PASSWORD = GMAIL_PASS
-
-LINKEDIN_STATE = os.getenv(
-    "LINKEDIN_STATE",
-    "",
-)
+LINKEDIN_STATE = os.environ.get("LINKEDIN_STATE", "").strip()
 
 
 # ============================================================
@@ -89,7 +75,6 @@ def get_config():
 
         "from_name": "Abhijit Sahu",
 
-
         # ====================================================
         # CANDIDATE
         # ====================================================
@@ -98,7 +83,6 @@ def get_config():
         "candidate_location": "Noida, India",
         "candidate_phone": "",
         "candidate_email": GMAIL_USER,
-
 
         # ====================================================
         # JOB MATCHING
