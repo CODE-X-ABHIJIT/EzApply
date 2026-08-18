@@ -78,14 +78,16 @@ def get_config():
 
     return {
         # ====================================================
-        # EMAIL
+        # SMTP
         # ====================================================
 
-        "gmail_user": GMAIL_USER,
-        "gmail_pass": GMAIL_PASS,
+        "smtp_user": GMAIL_USER,
+        "smtp_password": GMAIL_PASS,
 
-        "smtp_user": SMTP_USER,
-        "smtp_password": SMTP_PASSWORD,
+        "smtp_host": "smtp.gmail.com",
+        "smtp_port": 587,
+
+        "from_name": "Abhijit Sahu",
 
 
         # ====================================================
@@ -93,11 +95,8 @@ def get_config():
         # ====================================================
 
         "candidate_name": "Abhijit Sahu",
-
         "candidate_location": "Noida, India",
-
         "candidate_phone": "",
-
         "candidate_email": GMAIL_USER,
 
 
@@ -106,7 +105,6 @@ def get_config():
         # ====================================================
 
         "target_roles": target_roles,
-
         "target_keywords": target_keywords,
 
         "experience": [
