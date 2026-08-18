@@ -1,15 +1,123 @@
 find . -type f \( -name "*.db" -o -name "*.sqlite" -o -name "*.sqlite3" \)
 
+Since your database is:
+
+```bash
+data/outreach.db
+```
+
+open it with:
+
+```bash
 sqlite3 data/outreach.db
+```
+
+Then these are the useful commands:
+
+### See all tables
+
+```sql
 .tables
+```
 
-SELECT id, email, status FROM jobs;
+### See the table structure
 
-SELECT id, email, status
+```sql
+.schema
+```
+
+Or for a specific table:
+
+```sql
+.schema jobs
+```
+
+### See all records
+
+```sql
+SELECT * FROM jobs;
+```
+
+### See only email addresses
+
+```sql
+SELECT email FROM jobs;
+```
+
+### See sent emails
+
+If your table has a `status` column:
+
+```sql
+SELECT * FROM jobs WHERE status = 'sent';
+```
+
+If it uses a `sent_at` column:
+
+```sql
+SELECT email, sent_at
 FROM jobs
-WHERE status = 'sent';
+WHERE sent_at IS NOT NULL;
+```
 
-ALTERNATIVE
-====================
+### See pending jobs
 
-sqlite3 data/outreach.db "SELECT id, email, status FROM jobs;"
+```sql
+SELECT id, email, role, company, match_score
+FROM jobs
+WHERE status = 'pending';
+```
+
+### Count records
+
+```sql
+SELECT COUNT(*) FROM jobs;
+```
+
+### See the latest records
+
+```sql
+SELECT *
+FROM jobs
+ORDER BY id DESC
+LIMIT 10;
+```
+
+### Make output easier to read
+
+Inside SQLite:
+
+```sql
+.headers on
+.mode column
+```
+
+Then:
+
+```sql
+SELECT id, email, role, company, match_score, status
+FROM jobs;
+```
+
+### Exit SQLite
+
+Use:
+
+```sql
+.quit
+```
+
+or simply:
+
+```sql
+.exit
+```
+
+If you're specifically trying to find **why `approve` says "No eligible emails"**, run:
+
+```sql
+SELECT id, email, status, sent_at
+FROM jobs;
+```
+
+That will immediately show whether those two emails are already marked as sent.
