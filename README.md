@@ -1,6 +1,6 @@
 # 🚀 EzApply
 
-**EzApply** is a Python-based job outreach automation tool that helps automate the process of finding suitable LinkedIn job posts, extracting recruiter email addresses, matching jobs against target roles, and sending personalized cold emails with a resume.
+**EzApply** is a Python-based job outreach automation tool that helps automate the process of extracting recruiter email addresses, matching jobs against target roles, and sending personalized cold emails with a resume for the given post links.
 
 > **Current Status:** LinkedIn job searching is currently manual. LinkedIn post URLs are added to `posts.txt`. Automatic LinkedIn search is planned for a future version.
 
