@@ -84,7 +84,17 @@ jobs:
 
           echo "LinkedIn authentication state restored."
 
+      - name: Verify Gmail configuration
+        env:
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_PASS: ${{ secrets.GMAIL_PASS }}
+        run: |
+          echo "GMAIL_USER present: $([ -n "$GMAIL_USER" ] && echo YES || echo NO)"
+          echo "GMAIL_PASS present: $([ -n "$GMAIL_PASS" ] && echo YES || echo NO)"
 
+          python -c "import os; print('Python GMAIL_USER:', bool(os.getenv('GMAIL_USER'))); print('Python GMAIL_PASS:', bool(os.getenv('GMAIL_PASS')))"
+
+          python -c "from outreach.config import get_config; c=get_config(); print('Config smtp_user:', bool(c.get('smtp_user'))); print('Config smtp_password:', bool(c.get('smtp_password')))"
       # ------------------------------------------------------
       # Run complete outreach process
       # ------------------------------------------------------
