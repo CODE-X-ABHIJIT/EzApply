@@ -1,9 +1,9 @@
 ````markdown
 # 🚀 EzApply
 
-**EzApply** is a Python-based job outreach automation tool that helps automate the process of finding suitable LinkedIn job posts, extracting recruiter email addresses, matching jobs against your target roles, and sending personalized cold emails with your resume.
+**EzApply** is a Python-based job outreach automation tool that helps automate the process of finding suitable LinkedIn job posts, extracting recruiter email addresses, matching jobs against target roles, and sending personalized cold emails with a resume.
 
-> **Current status:** LinkedIn job searching is currently manual. You paste LinkedIn post URLs into `posts.txt`. Automatic LinkedIn search is planned for a future version.
+> **Current Status:** LinkedIn job searching is currently manual. LinkedIn post URLs are added to `posts.txt`. Automatic LinkedIn search is planned for a future version.
 
 ---
 
@@ -11,7 +11,7 @@
 
 - 🔗 Read LinkedIn job post URLs from `posts.txt`
 - 🌐 Open LinkedIn posts using Playwright and `LINKEDIN_STATE`
-- 📝 Extract job-post content automatically
+- 📝 Extract LinkedIn post content automatically
 - 📧 Detect recruiter email addresses from posts
 - 🎯 Match jobs against configured Cloud/DevOps roles
 - 📊 Calculate a job match score
@@ -21,7 +21,7 @@
 - 🗃️ Store jobs and email status in SQLite
 - 🔐 Use GitHub Secrets for credentials
 - ⚙️ Run automatically using GitHub Actions
-- 🖥️ Supports local execution and CI/CD execution
+- 🖥️ Support both local and CI/CD execution
 
 ---
 
@@ -56,51 +56,51 @@ EzApply/
 ├── requirements.txt
 ├── .gitignore
 └── README.md
-````
+```
 
 ---
 
 ## 🔄 Workflow
 
 ```text
-LinkedIn Job Posts
-       │
-       ▼
-   posts.txt
-       │
-       ▼
- Playwright
-       │
-       ▼
-Extract Post Content
-       │
-       ▼
-Extract Email + Job Details
-       │
-       ▼
-   Job Matcher
-       │
-       ▼
-   Match Score
-       │
-       ▼
-Email Generator
-       │
-       ▼
-SQLite Database
-       │
-       ▼
- Gmail SMTP
-       │
-       ▼
-Recruiter + Resume
+                    LinkedIn Job Posts
+                           │
+                           ▼
+                       posts.txt
+                           │
+                           ▼
+                       Playwright
+                           │
+                           ▼
+                  Extract Post Content
+                           │
+                           ▼
+                Extract Email + Job Details
+                           │
+                           ▼
+                      Job Matcher
+                           │
+                           ▼
+                       Match Score
+                           │
+                           ▼
+                    Email Generator
+                           │
+                           ▼
+                     SQLite Database
+                           │
+                           ▼
+                       Gmail SMTP
+                           │
+                           ▼
+                   Recruiter + Resume
 ```
 
 ---
 
 ## 📌 Current Job Collection Method
 
-Currently, LinkedIn searching is performed **manually**.
+Currently, LinkedIn job searching is performed **manually**.
 
 Add LinkedIn post URLs to:
 
@@ -115,7 +115,7 @@ https://www.linkedin.com/posts/example-devops-hiring-123456
 https://www.linkedin.com/posts/example-aws-engineer-789012
 ```
 
-EzApply then reads these URLs and opens the posts internally using Playwright.
+EzApply reads these URLs and opens the posts internally using Playwright.
 
 ### Automatic LinkedIn Search
 
@@ -135,25 +135,31 @@ is **planned but not implemented yet**.
 
 ## 🔐 LinkedIn Authentication
 
-EzApply uses a Playwright authentication state instead of storing your LinkedIn username/password.
+EzApply uses Playwright's authentication state instead of storing LinkedIn username/password credentials.
+
+The authentication state is represented by:
 
 ```text
 LINKEDIN_STATE
 ```
 
-The state is stored locally as:
+### Local
+
+The state is stored as:
 
 ```text
 data/linkedin_state.json
 ```
 
-For GitHub Actions, it is stored as a GitHub Secret.
+### GitHub Actions
+
+The authentication state is stored securely as a GitHub Secret:
 
 ```text
 LINKEDIN_STATE
 ```
 
-The workflow restores the state before running EzApply.
+The GitHub Actions workflow restores this state before running EzApply.
 
 ---
 
@@ -172,7 +178,7 @@ Site Reliability Engineer
 SRE
 ```
 
-Experience keywords include:
+### Experience Keywords
 
 ```text
 fresher
@@ -195,9 +201,9 @@ Example:
 
 ## 📧 Email Automation
 
-EzApply generates a personalized email based on the extracted job information.
+EzApply generates a personalized cold email using the extracted job information.
 
-Example structure:
+Example:
 
 ```text
 Hi Hiring Manager,
@@ -213,7 +219,7 @@ Thanks and regards,
 Abhijit Sahu
 ```
 
-The resume is automatically attached:
+The resume is automatically attached from:
 
 ```text
 data/Abhijit_Sahu_CV.pdf
@@ -229,7 +235,13 @@ EzApply stores job information and email status in:
 data/outreach.db
 ```
 
-The database helps prevent duplicate emails and keeps track of processed jobs.
+The database is used to:
+
+- Track discovered jobs
+- Store recruiter email addresses
+- Store match scores
+- Track email status
+- Prevent duplicate outreach
 
 Typical information includes:
 
@@ -256,6 +268,8 @@ Authenticate LinkedIn locally:
 python -m outreach login
 ```
 
+---
+
 ### Scan
 
 Read URLs from `posts.txt` and extract job information:
@@ -264,31 +278,45 @@ Read URLs from `posts.txt` and extract job information:
 python -m outreach scan
 ```
 
+---
+
 ### List
 
-Show pending jobs:
+Display pending jobs:
 
 ```bash
 python -m outreach list
 ```
 
+---
+
 ### Draft
 
-Display generated emails:
+Display generated email drafts:
 
 ```bash
 python -m outreach draft
 ```
 
+---
+
 ### Send One
 
-Send a specific job:
+Send an email for a specific job:
 
 ```bash
 python -m outreach send <id>
 ```
 
-### Approve / Bulk Send
+Example:
+
+```bash
+python -m outreach send 5
+```
+
+---
+
+### Bulk Send
 
 Send all eligible pending emails:
 
@@ -296,11 +324,13 @@ Send all eligible pending emails:
 python -m outreach approve
 ```
 
+EzApply processes all eligible jobs in one run instead of requiring approval for every individual email.
+
 ---
 
 ## 🤖 Automated Execution
 
-The complete workflow can be triggered through:
+The complete outreach process can be triggered using:
 
 ```bash
 python auto_outreach.py
@@ -310,23 +340,23 @@ The automation performs:
 
 ```text
 Scan
- ↓
-Extract jobs
- ↓
-Match jobs
- ↓
-Store in database
- ↓
-Generate emails
- ↓
-Send eligible emails
+  ↓
+Extract Jobs
+  ↓
+Match Jobs
+  ↓
+Store in Database
+  ↓
+Generate Emails
+  ↓
+Send Eligible Emails
 ```
 
 ---
 
 ## ☁️ GitHub Actions
 
-EzApply can run periodically using GitHub Actions.
+EzApply can be executed automatically using GitHub Actions.
 
 Example schedule:
 
@@ -338,7 +368,9 @@ on:
   workflow_dispatch:
 ```
 
-Required GitHub Secrets:
+This allows the workflow to run periodically while also supporting manual execution.
+
+### Required GitHub Secrets
 
 ```text
 GMAIL_USER
@@ -346,13 +378,13 @@ GMAIL_PASS
 LINKEDIN_STATE
 ```
 
-These values are injected into the workflow as environment variables.
+These secrets are injected into the workflow as environment variables.
 
 ---
 
 ## 🔑 Gmail Configuration
 
-EzApply uses Gmail SMTP.
+EzApply uses Gmail SMTP for email delivery.
 
 Required environment variables:
 
@@ -361,26 +393,33 @@ GMAIL_USER
 GMAIL_PASS
 ```
 
-For Gmail, `GMAIL_PASS` should be an **App Password**, not your normal Gmail password, when required by your account's security configuration.
+For Gmail accounts using 2-Step Verification, `GMAIL_PASS` should normally be a Gmail **App Password** rather than the regular account password.
 
 ---
 
 ## 📦 Installation
 
-Create and activate a virtual environment:
+### 1. Create Virtual Environment
 
 ```bash
 python -m venv .venv
+```
+
+### 2. Activate Virtual Environment
+
+Linux / WSL:
+
+```bash
 source .venv/bin/activate
 ```
 
-Install dependencies:
+### 3. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Install Playwright:
+### 4. Install Playwright Chromium
 
 ```bash
 python -m playwright install chromium
@@ -390,73 +429,98 @@ python -m playwright install chromium
 
 ## 🖥️ Local Usage
 
-1. Authenticate LinkedIn:
+### Step 1 — Authenticate LinkedIn
 
 ```bash
 python -m outreach login
 ```
 
-2. Add LinkedIn post URLs to:
+This creates the LinkedIn authentication state.
+
+---
+
+### Step 2 — Add LinkedIn Posts
+
+Add LinkedIn post URLs to:
 
 ```text
 data/posts.txt
 ```
 
-3. Run:
+Example:
+
+```text
+https://www.linkedin.com/posts/example-post-123456
+https://www.linkedin.com/posts/example-post-789012
+```
+
+---
+
+### Step 3 — Run EzApply
 
 ```bash
 python auto_outreach.py
 ```
 
-EzApply will process the URLs and send eligible outreach emails.
+EzApply will:
+
+1. Read the LinkedIn URLs
+2. Open the posts
+3. Extract post content
+4. Find recruiter emails
+5. Match jobs
+6. Store eligible jobs
+7. Generate emails
+8. Attach the resume
+9. Send eligible emails
 
 ---
 
 ## 🔒 Security
 
-Never commit these files or credentials:
-
-```text
-.env
-data/linkedin_state.json
-data/outreach.db
-```
+Do **not** commit sensitive credentials or authentication data.
 
 Recommended `.gitignore`:
 
 ```gitignore
+# Python
 .venv/
 __pycache__/
 *.pyc
 
+# Environment
 .env
 
+# Database
 data/outreach.db
+
+# LinkedIn authentication
 data/linkedin_state.json
 browser_profile/
 
+# IDE
 .idea/
 .vscode/
 ```
 
-Store sensitive values using:
+Store sensitive information using:
 
-* Local environment variables / `.env`
-* GitHub Actions Secrets
+- Local environment variables / `.env`
+- GitHub Actions Secrets
 
 ---
 
 ## 🧩 Tech Stack
 
-| Technology     | Purpose                     |
-| -------------- | --------------------------- |
-| Python         | Core application            |
-| Playwright     | LinkedIn browser automation |
-| SQLite         | Job & outreach storage      |
-| SMTP           | Email delivery              |
-| Gmail          | Email provider              |
-| GitHub Actions | Scheduled automation        |
-| Regex          | Email/job extraction        |
+| Technology | Purpose |
+|---|---|
+| Python | Core application |
+| Playwright | LinkedIn browser automation |
+| SQLite | Job and outreach storage |
+| SMTP | Email delivery |
+| Gmail | Email provider |
+| GitHub Actions | Scheduled execution |
+| Regex | Email and job extraction |
 
 ---
 
@@ -464,33 +528,40 @@ Store sensitive values using:
 
 ### ✅ Implemented
 
-* [x] LinkedIn post URL input
-* [x] LinkedIn authentication state
-* [x] Post content extraction
-* [x] Email extraction
-* [x] Job matching
-* [x] Match scoring
-* [x] Email generation
-* [x] Resume attachment
-* [x] SQLite tracking
-* [x] Bulk email sending
-* [x] GitHub Actions integration
-* [x] GitHub Secrets support
+- [x] LinkedIn post URL input
+- [x] LinkedIn authentication state
+- [x] Post content extraction
+- [x] Email extraction
+- [x] Job matching
+- [x] Match scoring
+- [x] Email generation
+- [x] Resume attachment
+- [x] SQLite tracking
+- [x] Bulk email sending
+- [x] GitHub Actions integration
+- [x] GitHub Secrets support
+- [x] Local execution
+- [x] CI/CD execution
 
 ### 🚧 Planned
 
-* [ ] Automatic LinkedIn job search
-* [ ] Automatic collection of relevant post URLs
-* [ ] Duplicate URL detection
-* [ ] Better company/recruiter extraction
-* [ ] Improved job ranking
-* [ ] Outreach statistics/dashboard
+- [ ] Automatic LinkedIn job search
+- [ ] Automatic collection of relevant post URLs
+- [ ] Automatic keyword-based search
+- [ ] Duplicate URL detection
+- [ ] Better company/recruiter extraction
+- [ ] Improved job ranking
+- [ ] Outreach statistics/dashboard
 
 ---
 
 ## ⚠️ Notes
 
-EzApply is designed for personal job-search assistance. LinkedIn access and automation should be used responsibly and in accordance with LinkedIn's applicable terms and policies.
+EzApply is designed for personal job-search assistance.
+
+LinkedIn automation should be used responsibly and in accordance with LinkedIn's applicable terms and policies.
+
+The current version **does not automatically search LinkedIn**. Job post URLs are manually added to `data/posts.txt`.
 
 ---
 
@@ -498,5 +569,14 @@ EzApply is designed for personal job-search assistance. LinkedIn access and auto
 
 **Abhijit Sahu**
 
-Cloud / DevOps focused automation project built with Python, Playwright, SQLite, SMTP and GitHub Actions.
+A Python-based job outreach automation project using:
 
+```text
+Python
+Playwright
+SQLite
+SMTP
+Gmail
+GitHub Actions
+```
+````
